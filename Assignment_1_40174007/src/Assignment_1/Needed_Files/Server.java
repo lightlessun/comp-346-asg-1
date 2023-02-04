@@ -1,3 +1,4 @@
+package Assignment_1.Needed_Files;
 
 import java.util.Scanner;
 import java.io.FileInputStream;
@@ -22,7 +23,7 @@ public class Server {
 	int maxNbAccounts;                /* maximum number of transactions */
 	Transactions transaction;         /* Transaction being processed */
 	Network objNetwork;               /* Server object to handle network operations */
-	Accounts [] account;              /* Accounts to be accessed or updated */
+	Accounts[] account;              /* Accounts to be accessed or updated */
   
     /** 
      * Constructor method of Client class
@@ -308,7 +309,7 @@ public class Server {
      */
     public void run()
     {   Transactions trans = new Transactions();
-    	long serverStartTime, serverEndTime;
+    	long serverStartTime= 1, serverEndTime = 1;
 
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
     	

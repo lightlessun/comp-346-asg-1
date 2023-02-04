@@ -1,4 +1,4 @@
-
+package Assignment_1.Needed_Files;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -92,7 +92,7 @@ public class Transactions {
      *  Mutator method of Transactions class
      * 
      * @return 
-     * @param transmount
+     * @param transAmount
      */
      public void setTransactionAmount(double transAmount)
      { 

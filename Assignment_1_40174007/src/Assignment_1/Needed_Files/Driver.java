@@ -1,4 +1,4 @@
-
+package Assignment_1.Needed_Files;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,7 +22,7 @@ public class Driver {
     	  ******************************************************************************************************************************************/
         
     	Network objNetwork = new Network("network");            /* Activate the network */
-        objNetwork.start();
+        objNetwork.run();
         Server objServer = new Server();        
         /* Complete here the code for the main method ...*/
     }

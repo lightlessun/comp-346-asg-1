@@ -1,3 +1,4 @@
+package Assignment_1.Needed_Files;
 
 import java.util.Scanner;
 import java.io.FileInputStream;
@@ -19,7 +20,7 @@ public class Client {
     
     private static int numberOfTransactions;   		/* Number of transactions to process */
     private static int maxNbTransactions;      		/* Maximum number of transactions */
-    private static Transactions [] transaction; 	/* Transactions to be processed */
+    private static Transactions[] transaction; 	/* Transactions to be processed */
     private static Network objNetwork;          	/* Client object to handle network operations */
     private String clientOperation;    				/* sending or receiving */
     
