@@ -16,7 +16,7 @@ import java.util.InputMismatchException;
  * @author Kerly Titus
  */
 
-public class Client { 
+public class Client implements Runnable{
     
     private static int numberOfTransactions;   		/* Number of transactions to process */
     private static int maxNbTransactions;      		/* Maximum number of transactions */
@@ -113,7 +113,7 @@ public class Client {
         
         try
         {
-        	inputStream = new Scanner(new FileInputStream("transaction.txt"));
+        	inputStream = new Scanner(new FileInputStream("./src/transaction.txt"));
         }
         catch(FileNotFoundException e)
         {

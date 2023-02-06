@@ -16,7 +16,7 @@ import java.util.InputMismatchException;
  * @author Kerly Titus
  */
 
-public class Server {
+public class Server implements Runnable{
   
 	int numberOfTransactions;         /* Number of transactions handled by the server */
 	int numberOfAccounts;             /* Number of accounts stored in the server */
@@ -129,12 +129,13 @@ public class Server {
         
         try
         {
-         inputStream = new Scanner(new FileInputStream("account.txt"));
+            inputStream = new Scanner(new FileInputStream("./src/account.txt"));
         }
         catch(FileNotFoundException e)
         {
             System.out.println("File account.txt was not found");
             System.out.println("or could not be opened.");
+            System.out.println(e.toString());
             System.exit(0);
         }
         while (inputStream.hasNextLine())
@@ -308,7 +309,8 @@ public class Server {
      * @param
      */
     public void run()
-    {   Transactions trans = new Transactions();
+    {
+        Transactions trans = new Transactions();
     	long serverStartTime= 1, serverEndTime = 1;
 
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
