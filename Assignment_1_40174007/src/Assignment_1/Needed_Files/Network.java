@@ -375,11 +375,12 @@ public class Network implements Runnable{
             
             	System.out.println("\n DEBUG : Network.send() - inComingBuffer status " + getInBufferStatus());
             }
-            else
-            	setInBufferStatus("normal");
-            
+            else {
+                setInBufferStatus("normal");
+            }
             return true;
-        }   
+        }
+
          
       /** Transmitting the transactions from the server to the client through the network 
      * @return

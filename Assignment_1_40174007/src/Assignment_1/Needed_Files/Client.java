@@ -158,7 +158,9 @@ public class Client implements Runnable{
          
          while (i < getNumberOfTransactions())
          {  
-            // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
+             while( objNetwork.getInBufferStatus().equals("full") ){
+                Thread.yield();
+             }
                                              	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
@@ -181,8 +183,10 @@ public class Client implements Runnable{
          int i = 0;     /* Index of transaction array */
          
          while (i < getNumberOfTransactions())
-         {     
-        	 // while( objNetwork.getOutBufferStatus().equals("empty"));  	/* Alternatively, busy-wait until the network output buffer is available */
+         {
+             while( objNetwork.getOutBufferStatus().equals("empty")){
+                 Thread.yield();
+             }  	/* Alternatively, busy-wait until the network output buffer is available */
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
@@ -213,7 +217,20 @@ public class Client implements Runnable{
     {   
     	Transactions transact = new Transactions();
     	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
-    
+
     	/* Implement here the code for the run method ... */
+
+        if(clientOperation.equals("sending")){
+            sendTransactions();
+            objNetwork.disconnect(objNetwork.getClientIP());
+        }
+        else{
+            receiveTransactions(new Transactions());
+            objNetwork.disconnect(objNetwork.getClientIP());
+            int x = 0;
+        }
+
+        System.out.println("\n Terminating "+clientOperation+" thread - " + " Running time " + (0) + " milliseconds");
+
     }
 }

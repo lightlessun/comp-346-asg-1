@@ -194,8 +194,10 @@ public class Server implements Runnable{
          /* Process the accounts until the client disconnects */
          while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
          { 
-        	 /* while( (objNetwork.getInBufferStatus().equals("empty"))); */  /* Alternatively, busy-wait until the network input buffer is available */
-        	 
+        	  while( (objNetwork.getInBufferStatus().equals("empty"))){
+        	      Thread.yield();
+              }
+
         	 if (!objNetwork.getInBufferStatus().equals("empty"))
         	 {
         		 System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
@@ -233,7 +235,9 @@ public class Server implements Runnable{
                             System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
         				 } 
         		        		 
-        		 // while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
+        		  while( (objNetwork.getOutBufferStatus().equals("full"))){
+        		      Thread.yield();
+                  } /* Alternatively,  busy-wait until the network output buffer is available */
                                                            
         		 System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
         		 
@@ -314,11 +318,17 @@ public class Server implements Runnable{
     	long serverStartTime= 1, serverEndTime = 1;
 
     	System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
+    	//objNetwork.connect(objNetwork.getServerIP());
     	
     	/* Implement the code for the run method */
-        
+        processTransactions(new Transactions());
+        while( !(objNetwork.getOutBufferStatus().equals("empty"))){
+            Thread.yield();
+        } /* Alternatively,  busy-wait until the network output buffer is available */
+
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
-           
+
+
     }
 }
 
