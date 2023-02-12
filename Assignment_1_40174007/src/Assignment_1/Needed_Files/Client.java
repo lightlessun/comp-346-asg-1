@@ -140,7 +140,7 @@ public class Client implements Runnable{
         }
         setNumberOfTransactions(i);		/* Record the number of transactions processed */
         
-        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
+        //System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
         
         inputStream.close( );
 
@@ -164,7 +164,7 @@ public class Client implements Runnable{
                                              	
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
            
-            System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
+            //System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
             
             objNetwork.send(transaction[i]);                            /* Transmit current transaction */
             i++;
@@ -190,7 +190,7 @@ public class Client implements Runnable{
                                                                         	
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
             
-            System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
+            //System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
             
             System.out.println(transact);                               	/* Display updated transaction */    
             i++;
@@ -215,22 +215,25 @@ public class Client implements Runnable{
      */
     public void run()
     {   
-    	Transactions transact = new Transactions();
-    	long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
+    	long startTime = System.currentTimeMillis();
 
     	/* Implement here the code for the run method ... */
 
         if(clientOperation.equals("sending")){
             sendTransactions();
+            while (!objNetwork.getInBufferStatus().equals("empty")){
+                Thread.yield();
+            }
             objNetwork.disconnect(objNetwork.getClientIP());
         }
-        else{
+        else if(clientOperation.equals("receiving")){
             receiveTransactions(new Transactions());
             objNetwork.disconnect(objNetwork.getClientIP());
             int x = 0;
         }
+        long endTime = System.currentTimeMillis();
 
-        System.out.println("\n Terminating "+clientOperation+" thread - " + " Running time " + (0) + " milliseconds");
+        System.out.println("\n Terminating "+clientOperation+" thread - " + " Running time " + (endTime - startTime) + " milliseconds");
 
     }
 }
